@@ -1,0 +1,11 @@
+set(LLVM_TARGET_DEFINITIONS CustomOps.td)
+mlir_tablegen(CustomOps.h.inc -gen-op-decls)
+mlir_tablegen(CustomOps.cpp.inc -gen-op-defs)
+mlir_tablegen(CustomOpsTypes.h.inc -gen-typedef-decls -typedefs-dialect=Custom)
+mlir_tablegen(CustomOpsTypes.cpp.inc -gen-typedef-defs -typedefs-dialect=Custom)
+mlir_tablegen(CustomOpsDialect.h.inc -gen-dialect-decls -dialect=Custom)
+add_public_tablegen_target(MLIRCustomOpsIncGen)
+add_dependencies(mlir-headers MLIRCustomOpsIncGen)
+
+add_mlir_doc(CustomDialect -gen-dialect-doc CustomDialect ourlang/)
+add_mlir_doc(CustomOps -gen-op-doc CustomOps ourlang/)
